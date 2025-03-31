@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>จัดการห้องประชุม</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 50%;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            border-radius: 8px;
+        }
+        input[type="text"], input[type="number"], textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: block;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .checkbox-group {
+            display: flex;
+            gap: 15px;
+            margin: 10px 0;
+        }
+        .meeting-list {
+            margin-top: 20px;
+        }
+        .meeting-item {
+            background: #fff;
+            padding: 15px;
+            border: 1px solid #ddd;
+            margin-top: 10px;
+            border-radius: 5px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">จัดการห้องประชุม</div>
+        <input type="text" id="roomName" placeholder="ชื่อห้อง">
+        <input type="text" id="location" placeholder="สถานที่ตั้ง">
+        <input type="number" id="capacity" placeholder="ความจุเข้าร่วม">
+        <label><strong>อุปกรณ์และสิ่งอำนวยความสะดวก:</strong></label>
+        <div class="checkbox-group">
+            <label><input type="checkbox" id="projector"> โปรเจคเตอร์</label>
+            <label><input type="checkbox" id="whiteboard"> ไวท์บอร์ด</label>
+            <label><input type="checkbox" id="soundSystem"> ระบบเสียง</label>
+        </div>
+        <input type="text" id="imageUrl" placeholder="รูปภาพห้องประชุม (URL)">
+        <button onclick="addMeetingRoom()">เพิ่มห้องประชุม</button>
+        
+        <div class="meeting-list" id="meetingList"></div>
+    </div>
+
+    <script>
+        function addMeetingRoom() {
+            const roomName = document.getElementById('roomName').value;
+            const location = document.getElementById('location').value;
+            const capacity = document.getElementById('capacity').value;
+            const imageUrl = document.getElementById('imageUrl').value;
+            
+            let facilities = [];
+            if (document.getElementById('projector').checked) facilities.push('โปรเจคเตอร์');
+            if (document.getElementById('whiteboard').checked) facilities.push('ไวท์บอร์ด');
+            if (document.getElementById('soundSystem').checked) facilities.push('ระบบเสียง');
+            
+            const meetingList = document.getElementById('meetingList');
+            const meetingItem = document.createElement('div');
+            meetingItem.classList.add('meeting-item');
+            meetingItem.innerHTML = `<strong>ห้องประชุม: ${roomName}</strong><br>
+                                     สถานที่: ${location}<br>
+                                     ความจุ: ${capacity} คน<br>
+                                     อุปกรณ์: ${facilities.join(', ')}<br>
+                                     <img src="${imageUrl}" alt="รูปห้องประชุม" width="200" style="margin-top: 10px; border-radius: 5px;">`;
+            meetingList.appendChild(meetingItem);
+        }
+    </script>
+</body>
+</html>
